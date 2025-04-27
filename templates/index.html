@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instagram Fake Account Detection</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #121212;
+            color: #eeeeee;
+        }
+        h1 {
+            color: #00bcd4;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s;
+        }
+        form {
+            margin-bottom: 30px;
+            animation: fadeIn 2s;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 280px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #1e1e1e;
+            color: #eee;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: 0.4s;
+        }
+        button:hover {
+            background-color: #0097a7;
+            transform: scale(1.1);
+        }
+        img {
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            animation: fadeIn 2s;
+        }
+        h2, h3 {
+            margin-top: 20px;
+            animation: fadeIn 2s;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 60%;
+            background-color: #1f1f1f;
+            color: #ddd;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+            animation: fadeIn 2s;
+        }
+        table, th, td {
+            border: 1px solid #333;
+        }
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+        td b {
+            color: #00bcd4;
+        }
+        .success {
+            color: #4CAF50;
+            font-weight: bold;
+            animation: fadeIn 2s;
+        }
+        .warning {
+            color: #FF9800;
+            font-weight: bold;
+            animation: fadeIn 2s;
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🔍 Instagram Fake vs Real Detector</h1>
+
+    <form method="POST">
+        <input type="text" name="username" placeholder="Enter Instagram Username" required>
+        <button type="submit">Check</button>
+    </form>
+
+    {% if username %}
+        <h2>Username: {{ username }}</h2>
+    {% endif %}
+
+    {% if profile_img_base64 %}
+        <img src="data:image/jpeg;base64,{{ profile_img_base64 }}" width="200">
+    {% endif %}
+
+    {% if prediction_result %}
+        {% if "REAL" in prediction_result %}
+            <h2 class="success">{{ prediction_result }}</h2>
+        {% else %}
+            <h2 class="warning">{{ prediction_result }}</h2>
+        {% endif %}
+    {% endif %}
+
+    {% if profile_data %}
+        <h3>📊 Extracted Profile Features:</h3>
+        <table>
+            {% for key, value in profile_data.items() if key != 'profile_pic_url' %}
+                <tr>
+                    <td><b>{{ key }}</b></td>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+</body>
+</html>
