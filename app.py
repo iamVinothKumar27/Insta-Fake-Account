@@ -12,7 +12,7 @@ import base64
 app = Flask(__name__)
 
 # Load model
-model = load_model('insta-fake-real.h5')
+model = load_model('insta-fake-real-new.keras')
 
 # Apify Token
 APIFY_TOKEN = "apify_api_WXRA1o27OqXniZ02Za4561iNfc4U7Q01M0fP"
